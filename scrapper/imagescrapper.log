@@ -1,0 +1,10 @@
+12/16/2022 02:54:30 PM - INFO - __main__ : Setting the chrome options
+12/16/2022 02:54:34 PM - INFO - __main__ : scrolling down
+12/16/2022 02:54:37 PM - INFO - __main__ : show more option present
+12/16/2022 02:54:37 PM - ERROR - __main__ : Message: element not interactable
+  (Session info: chrome=108.0.5359.125)
+
+12/16/2022 02:54:37 PM - INFO - __main__ : scrolled down
+12/16/2022 02:56:23 PM - INFO - __main__ : The output folder doesnt exists
+12/16/2022 02:56:23 PM - INFO - __main__ : Creating the output folder
+12/16/2022 02:56:23 PM - INFO - __main__ : saving the links to an excel

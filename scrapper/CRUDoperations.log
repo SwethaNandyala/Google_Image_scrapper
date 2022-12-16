@@ -1,0 +1,3 @@
+12/16/2022 02:54:30 PM - INFO - db_connection.Databaseoperations : Executing get_or_create_collection method
+12/16/2022 02:54:30 PM - INFO - db_connection.Databaseoperations : Executing check if collection exists
+12/16/2022 02:54:30 PM - INFO - db_connection.Databaseoperations : image_collection collection doesnt exists
