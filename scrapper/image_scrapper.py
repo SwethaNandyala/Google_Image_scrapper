@@ -93,7 +93,6 @@ class scrapper:
 
     def get_image_urls(self,keyword):
         thumbnails = self.driver.find_elements_by_class_name("Q4LuWd")
-        print(thumbnails)
         print(len(thumbnails))
         for each_icon in thumbnails:
             each_icon.click()
