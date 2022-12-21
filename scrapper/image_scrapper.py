@@ -95,7 +95,7 @@ class scrapper:
 
     def get_image_urls(self, num_images: int, pause=2):
         self.log.info("Executing the get urls method")
-        image_url_list = []
+        image_url_set = set()
 
         try:
             # find the thumbnails in the search page
@@ -114,14 +114,14 @@ class scrapper:
                 for image in big_image:
                     if image.get_attribute('src') and 'http' in image.get_attribute('src'):
                         link = image.get_attribute('src')
-                        image_url_list.append(link)
-                        https_found = len(image_url_list)
+                        image_url_set.add(link)
+                        https_found = len(image_url_set)
                         self.log.info(f"Found {https_found} http link")
-                if len(image_url_list) == num_images:
-                    self.log.info(f"Found {len(image_url_list)} urls...search completed ")
+                if len(image_url_set) == num_images:
+                    self.log.info(f"Found {len(image_url_set)} urls...search completed ")
                     self.log.info(f"Reached the max number of links specified")
                     break
-            return set(image_url_list)
+            return image_url_set
 
         except Exception as e:
             self.log.error(e)
@@ -207,7 +207,7 @@ class scrapper:
             self.save_urls_to_excel(urls_set, keyword)
             final_urls, len_common_links = self.get_final_set_links(keyword, urls_set)
             msg = self.download_urls_to_folder(final_urls, len_common_links, keyword)
-            self.driver.close()
+            self.driver.quit()
             return msg
         except Exception as e:
             self.log.error(e)
