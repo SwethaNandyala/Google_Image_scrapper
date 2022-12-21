@@ -1,6 +1,8 @@
 import logging
 import os
 
+import gridfs
+from openpyxl import Workbook
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -13,13 +15,13 @@ from db_connection.Databaseoperations import Mongodb_operations
 from selenium.common.exceptions import NoSuchElementException
 import pandas as pd
 
+
 class scrapper:
 
     def __init__(self, db_operation_obj: Mongodb_operations):
         self.log = class_customlogger.custom_logger_fn(logger_name=__name__, logLevel=logging.DEBUG,
                                                        log_filename="imagescrapper.log")
         self.url = "https://images.google.com/"
-        self.image_url_list = []
         self.path = './chromedriver.exe'
         self.driver = webdriver.Chrome(executable_path=self.path, options=self.set_chrome_options())
         self.db_operation_obj = db_operation_obj
@@ -91,51 +93,121 @@ class scrapper:
         except Exception as e:
             self.log.error(e)
 
-    def get_image_urls(self,keyword):
-        thumbnails = self.driver.find_elements_by_class_name("Q4LuWd")
-        print(len(thumbnails))
-        for each_icon in thumbnails:
-            each_icon.click()
-            time.sleep(2)
-            image_source = self.driver.find_elements_by_class_name("n3VNCb")
-            for image in image_source:
-                image_src = image.get_attribute("src")
-                if image_src and "http" in image_src:
-                    self.image_url_list.append(image_src)
-        col_name=keyword
-        links_df = pd.DataFrame(self.image_url_list, columns=[col_name])
+    def get_image_urls(self, num_images: int, pause=2):
+        self.log.info("Executing the get urls method")
+        image_url_list = []
 
-        if not os.path.exists("Output"):
-            self.log.info("The output folder doesnt exists")
-            self.log.info("Creating the output folder")
-            os.mkdir("output")
+        try:
+            # find the thumbnails in the search page
+            thumbnails = self.driver.find_elements_by_class_name("Q4LuWd")
+            self.log.info(f"Found {len(thumbnails)} number of thumbnails")
+            for each_image in thumbnails:
+                try:
+                    # click on each thumbnail and get the bigger picture with good resolution.
+                    each_image.click()
+                    time.sleep(pause)
+                except Exception as e:
+                    self.log.error(e)
+                big_image = self.driver.find_elements_by_class_name("n3VNCb")
+
+                # append to the image url set if image has a http link in the image src:
+                for image in big_image:
+                    if image.get_attribute('src') and 'http' in image.get_attribute('src'):
+                        link = image.get_attribute('src')
+                        image_url_list.append(link)
+                        https_found = len(image_url_list)
+                        self.log.info(f"Found {https_found} http link")
+                if len(image_url_list) == num_images:
+                    self.log.info(f"Found {len(image_url_list)} urls...search completed ")
+                    self.log.info(f"Reached the max number of links specified")
+                    break
+            return set(image_url_list)
+
+        except Exception as e:
+            self.log.error(e)
+
+    def save_urls_to_excel(self, urls_set, keyword):
+        try:
+            self.log.info("Executing the save_urls_to_excel method")
+            urls_links_df = pd.DataFrame(urls_set, columns=[keyword])
+            if not os.path.exists("Output"):
+                self.log.info("The output folder doesnt exists")
+                self.log.info("Creating the output folder")
+                os.mkdir("output")
+            else:
+                self.log.info("The output folder exists")
+
+            wb_name = keyword + '_' + 'image_urls.xlsx'
+            folder_path = '.\output\ ' + wb_name
+            self.log.info(f"Saving the urls to excel-->{wb_name}")
+
+            urls_links_df.to_excel(folder_path, sheet_name='image_urls', index=None)
+        except Exception as e:
+            self.log.error(e)
+
+    def get_final_set_links(self, keyword, urls_set):
+
+        links_present_in_db = []
+        for i in self.db_operation_obj.db.fs.files.find({'search_string': keyword}, {'_id': 1}):
+            links_present_in_db.extend(list(i.values()))
+
+        common_links = set(urls_set).intersection(set(links_present_in_db))
+
+        if len(common_links) > 0:
+            self.log.info(f"{len(common_links)}:links are already present in db")
+            self.log.info(f"These links are already present in db {common_links}")
+            links_not_present_in_db = list(set(urls_set) - set(links_present_in_db)) + list(set(links_present_in_db) - set(urls_set))
+            self.log.info(f"{len(links_not_present_in_db)}links are not present in db")
+            self.log.info(f"These links are not present in db {links_not_present_in_db}")
+            return links_not_present_in_db, len(common_links)
         else:
-            self.log.info("The output folder exists")
+            links_not_present_in_db = urls_set
+            self.log.info(f"{len(links_not_present_in_db)}: links are not present in db")
+            self.log.info(f"These links are not present in db {links_not_present_in_db}")
+        return links_not_present_in_db, len(common_links)
 
-        self.log.info("saving the links to an excel")
-        links_df.to_excel('.\output\image_urls.xlsx', sheet_name="image_urls", index=None)
+    def download_urls_to_folder(self, final_urls_set, len_common_links, keyword):
+        self.log.info("Executing the download_urls_to_folder method")
+        target_folder = './Output/' + keyword
+        if not os.path.exists(target_folder):
+            self.log.info(f"Target folder {target_folder} doesnt exists")
+            os.mkdir(target_folder)
+        else:
+            self.log.info(f"Target folder {target_folder} already exists")
+        count = len_common_links
+        for each_url in final_urls_set:
+            image_data = requests.get(each_url).content
+            suffix = str(count + 1)
+            image_name = keyword + suffix + ".jpg"
+            f = open(os.path.join(target_folder, image_name), 'wb')
+            f.write(image_data)
+            self.log.info(f"Saved the {keyword + suffix} to {target_folder}")
+            f.close()
+            self.db_operation_obj.insert_data(target_folder, image_name, keyword, each_url)
+            count += 1
+        return f"downloaded the images to {target_folder}"
 
-        return self.image_url_list
-
-    def search_image_in_google(self, keyword):
-        self.driver.get(self.url)
-        # self.driver.refresh()
-        self.driver.maximize_window()
-        search_box = self.driver.find_element_by_xpath(
-            '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')
-        search_box.send_keys(keyword)
-        search_box.send_keys(Keys.ENTER)
-        self.scroll_down()
-        self.scroll_up()
-        self.get_image_urls(keyword)
-
-
-
-    def download_image_from_urls(self):
-        pass
-
-
-db_operation = Mongodb_operations(db_name="google_images")
-db_operation.get_or_create_collection("image_collection")
-sc = scrapper(db_operation)
-sc.search_image_in_google("cat")
+    def search_image_in_google(self, keyword, num_of_images=10):
+        self.log.info("Executing the search_image_in_google method")
+        try:
+            self.driver.get(self.url)
+            # self.driver.refresh()
+            self.driver.maximize_window()
+            try:
+                search_box = self.driver.find_element_by_xpath(
+                    '/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input')
+            except Exception as e:
+                self.log.error(e)
+            search_box.send_keys(keyword)
+            self.log.info(f"searching for {keyword}...")
+            search_box.send_keys(Keys.ENTER)
+            self.scroll_down()
+            self.scroll_up()
+            urls_set = self.get_image_urls(num_of_images)
+            self.save_urls_to_excel(urls_set, keyword)
+            final_urls, len_common_links = self.get_final_set_links(keyword, urls_set)
+            msg = self.download_urls_to_folder(final_urls, len_common_links, keyword)
+            self.driver.close()
+            return msg
+        except Exception as e:
+            self.log.error(e)

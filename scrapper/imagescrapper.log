@@ -1,10 +1,26 @@
-12/16/2022 02:54:30 PM - INFO - __main__ : Setting the chrome options
-12/16/2022 02:54:34 PM - INFO - __main__ : scrolling down
-12/16/2022 02:54:37 PM - INFO - __main__ : show more option present
-12/16/2022 02:54:37 PM - ERROR - __main__ : Message: element not interactable
+12/21/2022 09:58:11 AM - INFO - __main__ : Setting the chrome options
+12/21/2022 09:58:12 AM - INFO - __main__ : Executing the search_image_in_google method
+12/21/2022 09:58:13 AM - INFO - __main__ : searching for rat...
+12/21/2022 09:58:13 AM - INFO - __main__ : scrolling down
+12/21/2022 09:58:16 AM - INFO - __main__ : show more option present
+12/21/2022 09:58:16 AM - ERROR - __main__ : Message: element not interactable
   (Session info: chrome=108.0.5359.125)
 
-12/16/2022 02:54:37 PM - INFO - __main__ : scrolled down
-12/16/2022 02:56:23 PM - INFO - __main__ : The output folder doesnt exists
-12/16/2022 02:56:23 PM - INFO - __main__ : Creating the output folder
-12/16/2022 02:56:23 PM - INFO - __main__ : saving the links to an excel
+12/21/2022 09:58:16 AM - INFO - __main__ : scrolled down
+12/21/2022 09:58:16 AM - INFO - __main__ : Executing the get urls method
+12/21/2022 09:58:16 AM - INFO - __main__ : Found 48 number of thumbnails
+12/21/2022 09:58:21 AM - INFO - __main__ : Found 1 http link
+12/21/2022 09:58:25 AM - INFO - __main__ : Found 2 http link
+12/21/2022 09:58:27 AM - INFO - __main__ : Found 3 http link
+12/21/2022 09:58:29 AM - INFO - __main__ : Found 4 http link
+12/21/2022 09:58:29 AM - INFO - __main__ : Found 4 urls...search completed 
+12/21/2022 09:58:29 AM - INFO - __main__ : Reached the max number of links specified
+12/21/2022 09:58:29 AM - INFO - __main__ : Executing the save_urls_to_excel method
+12/21/2022 09:58:29 AM - INFO - __main__ : The output folder exists
+12/21/2022 09:58:29 AM - INFO - __main__ : Saving the urls to excel-->image_urls.xlsx
+12/21/2022 09:58:29 AM - INFO - __main__ : Executing the download_urls_to_folder method
+12/21/2022 09:58:29 AM - INFO - __main__ : Target folder ./Output/rat doesnt exists
+12/21/2022 09:58:30 AM - INFO - __main__ : Saved the rat1 to ./Output/rat
+12/21/2022 09:58:31 AM - INFO - __main__ : Saved the rat2 to ./Output/rat
+12/21/2022 09:58:32 AM - INFO - __main__ : Saved the rat3 to ./Output/rat
+12/21/2022 09:58:32 AM - INFO - __main__ : Saved the rat4 to ./Output/rat

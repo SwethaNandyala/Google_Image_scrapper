@@ -1,0 +1,44 @@
+12/21/2022 03:14:24 PM - INFO - scrapper.image_scrapper : Setting the chrome options
+12/21/2022 03:14:25 PM - INFO - scrapper.image_scrapper : Executing the search_image_in_google method
+12/21/2022 03:14:26 PM - INFO - scrapper.image_scrapper : searching for dove...
+12/21/2022 03:14:26 PM - INFO - scrapper.image_scrapper : scrolling down
+12/21/2022 03:14:34 PM - INFO - scrapper.image_scrapper : show more option present
+12/21/2022 03:14:34 PM - INFO - scrapper.image_scrapper : show more option clicked
+12/21/2022 03:14:34 PM - INFO - scrapper.image_scrapper : scrolling down
+12/21/2022 03:14:37 PM - INFO - scrapper.image_scrapper : show more option present
+12/21/2022 03:14:37 PM - ERROR - scrapper.image_scrapper : Message: element not interactable
+  (Session info: chrome=108.0.5359.125)
+
+12/21/2022 03:14:37 PM - INFO - scrapper.image_scrapper : scrolled down
+12/21/2022 03:14:37 PM - INFO - scrapper.image_scrapper : Reached end of the page
+12/21/2022 03:14:37 PM - INFO - scrapper.image_scrapper : scrolled down
+12/21/2022 03:14:37 PM - INFO - scrapper.image_scrapper : Executing the get urls method
+12/21/2022 03:14:38 PM - INFO - scrapper.image_scrapper : Found 519 number of thumbnails
+12/21/2022 03:14:42 PM - INFO - scrapper.image_scrapper : Found 1 http link
+12/21/2022 03:14:49 PM - INFO - scrapper.image_scrapper : Found 2 http link
+12/21/2022 03:14:51 PM - INFO - scrapper.image_scrapper : Found 3 http link
+12/21/2022 03:14:53 PM - INFO - scrapper.image_scrapper : Found 4 http link
+12/21/2022 03:14:56 PM - INFO - scrapper.image_scrapper : Found 5 http link
+12/21/2022 03:14:58 PM - INFO - scrapper.image_scrapper : Found 6 http link
+12/21/2022 03:15:02 PM - INFO - scrapper.image_scrapper : Found 7 http link
+12/21/2022 03:15:04 PM - INFO - scrapper.image_scrapper : Found 8 http link
+12/21/2022 03:15:07 PM - INFO - scrapper.image_scrapper : Found 9 http link
+12/21/2022 03:15:09 PM - INFO - scrapper.image_scrapper : Found 10 http link
+12/21/2022 03:15:11 PM - INFO - scrapper.image_scrapper : Found 11 http link
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : Found 12 http link
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : Found 12 urls...search completed 
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : Reached the max number of links specified
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : Executing the save_urls_to_excel method
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : The output folder exists
+12/21/2022 03:15:13 PM - INFO - scrapper.image_scrapper : Saving the urls to excel-->dove_image_urls.xlsx
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : 8:links are already present in db
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : These links are already present in db {'https://t3.ftcdn.net/jpg/01/35/09/70/360_F_135097073_cunQGD1iV8Hv1KI6hcLQdIjzLWBAzGRR.jpg', 'https://www.collinsdictionary.com/images/full/dove_183786569_1000.jpg', 'https://img.freepik.com/free-vector/hand-drawn-dove-outline-illustration_23-2149255735.jpg', 'https://static.wikia.nocookie.net/seekers/images/5/5d/Dove.png/revision/latest?cb=20130208112858', 'https://i.pinimg.com/736x/1d/6c/c5/1d6cc515a0048e8a90bfc14f42ee1ccb--dove-pictures-religious-pictures.jpg', 'https://img.freepik.com/premium-vector/dove-peace-symbol-dove-with-olive-branch-hand-drawn-pigeon-vector-eps10_532800-252.jpg?w=2000', 'https://cdn.download.ams.birds.cornell.edu/api/v1/asset/85868591/900', 'https://images.immediate.co.uk/production/volatile/sites/23/2014/09/GettyImages-147952084-ba149d0.jpg?quality=90&resize=980,654'}
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : 5links are not present in db
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : These links are not present in db ['https://images.unsplash.com/photo-1507126882445-434b04530d1a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG92ZXxlbnwwfHwwfHw%3D&w=1000&q=80', 'https://m.media-amazon.com/images/I/51RyRfrf37L._SX569_.jpg', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Peace_dove.svg/2108px-Peace_dove.svg.png', 'https://images-static.nykaa.com/media/catalog/product/1/b/1bf2b5917002_S1_8901030772177.jpg?tr=w-500,pr-true', 'https://a-z-animals.com/media/2022/02/Pigeon-vs-Dove-1050x450-1.jpg']
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : Executing the download_urls_to_folder method
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : Target folder ./Output/dove already exists
+12/21/2022 03:15:14 PM - INFO - scrapper.image_scrapper : Saved the dove9 to ./Output/dove
+12/21/2022 03:15:16 PM - INFO - scrapper.image_scrapper : Saved the dove10 to ./Output/dove
+12/21/2022 03:15:17 PM - INFO - scrapper.image_scrapper : Saved the dove11 to ./Output/dove
+12/21/2022 03:15:19 PM - INFO - scrapper.image_scrapper : Saved the dove12 to ./Output/dove
+12/21/2022 03:15:19 PM - INFO - scrapper.image_scrapper : Saved the dove13 to ./Output/dove

@@ -1,5 +1,5 @@
-12/16/2022 02:54:30 PM - INFO - db_connection.CreateDBConnections : Successfully connected with mongodb
-12/16/2022 02:54:30 PM - INFO - db_connection.CreateDBConnections : Executing Creating a Database method
-12/16/2022 02:54:30 PM - INFO - db_connection.CreateDBConnections : Executing Check if a db exists method
-12/16/2022 02:54:30 PM - INFO - db_connection.CreateDBConnections : Database google_images doesnt exists
-12/16/2022 02:54:30 PM - INFO - db_connection.CreateDBConnections : Created a Database google_images
+12/21/2022 10:36:30 AM - INFO - db_connection.CreateDBConnections : Successfully connected with mongodb
+12/21/2022 10:36:30 AM - INFO - db_connection.CreateDBConnections : Executing Creating a Database method
+12/21/2022 10:36:30 AM - INFO - db_connection.CreateDBConnections : Executing Check if a db exists method
+12/21/2022 10:36:31 AM - INFO - db_connection.CreateDBConnections : Database google_images doesnt exists
+12/21/2022 10:36:31 AM - INFO - db_connection.CreateDBConnections : Created a Database google_images
